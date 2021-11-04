@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+<!--        <record id="view_move_form_inherit" model="ir.ui.view">-->
+<!--            <field name="name">account.move.form.inherit</field>-->
+<!--            <field name="model">account.move</field>-->
+<!--            <field name="inherit_id" ref="account.view_move_form"/>-->
+<!--            <field name="arch" type="xml">-->
+
+<!--                <xpath expr="//notebook" position="inside">-->
+<!--                    <page string="QR Code">-->
+<!--                        <group>-->
+<!--                            <group>-->
+<!--                                <field name="qr_code" widget="image"/>-->
+<!--                            </group>-->
+<!--                        </group>-->
+<!--                    </page>-->
+<!--                </xpath>-->
+
+<!--            </field>-->
+<!--        </record>-->
+
+        <template id="report_boxed_custom_header" name="Report Boxed Custom Header" inherit_id="web.external_layout_boxed">
+            <xpath expr="//div[hasclass('o_boxed_header')]" position="replace">
+                <div class="row mb12">
+                    <div class="col-3">
+                        <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo" style="width:150px;height:120px;"/>
+                    </div>
+
+                    <div class="col-3">
+                        <t t-if="len(docs) == 1">
+                            <img t-if="doc_model == 'account.move'"
+                                 t-att-src="'data:image/png;base64,%s' % to_text(docs.qr_code)"
+                                 style="width:150px;height:150px;"/>
+                        </t>
+                    </div>
+
+                    <div class="col-6 text-right mb4">
+                        <h4 class="mt0" t-field="company.report_header"/>
+                        <div name="company_address" class="mb4">
+                            <span class="company_address" t-field="company.partner_id"
+                                t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="report_standard_custom_header" name="Report Standard Custom Header" inherit_id="web.external_layout_standard">
+            <xpath expr="//div" position="replace">
+                <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                    <div class="row">
+
+                        <div class="col-3 mb4">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 45px;" alt="Logo"/>
+                        </div>
+
+                        <div class="col-9 text-right" style="margin-top:22px;" t-field="company.report_header" name="moto"/>
+
+                        <div class="col-9 text-right" style="text-align:right;">
+                            <t t-if="len(docs) == 1">
+                                <img t-if="doc_model == 'account.move'"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(docs.qr_code)"
+                                     style="width:150px;height:150px;"/>
+                            </t>
+                        </div>
+                    </div>
+                    <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                        <div class="col-12">
+                            <div style="border-bottom: 1px solid black;"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6" name="company_address">
+                            <div t-field="company.partner_id"
+                                t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                            />
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="report_clean_custom_header" name="Report Clean Custom Header" inherit_id="web.external_layout_clean">
+            <xpath expr="//div" position="replace">
+                <div t-attf-class="header o_company_#{company.id}_layout" t-att-style="report_header_style">
+                    <div class="o_clean_header">
+                    <div class="row">
+                        <div class="col-3">
+                            <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" alt="Logo" style="width:150px;height:120px;"/>
+                        </div>
+
+                        <div class="col-3 text-right" style="text-align:right;">
+                            <t t-if="len(docs) == 1">
+                                <img t-if="doc_model == 'account.move'"
+                                     t-att-src="'data:image/png;base64,%s' % to_text(docs.qr_code)"
+                                     style="width:150px;height:160px;"/>
+                            </t>
+                        </div>
+
+                        <div class="col-5 offset-1" name="company_address">
+                            <ul class="list-unstyled">
+                                <strong><li t-if="company.name"><span t-field="company.name"/></li></strong>
+                                <li t-if="company.vat"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                                <li t-if="company.phone">Tel: <span class="o_force_ltr" t-field="company.phone"/></li>
+                                <li t-if="company.email"><span t-field="company.email"/></li>
+                                <li t-if="company.website"><span t-field="company.website"/></li>
+                            </ul>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+        <template id="report_background_custom_header" name="Report Background Custom Header" inherit_id="web.external_layout_background">
+            <xpath expr="//div" position="replace">
+                <div t-attf-class="o_company_#{company.id}_layout header" t-att-style="report_header_style">
+                    <div class="o_background_header">
+                    <div class="float-right">
+                        <h3 class="mt0 text-right" t-field="company.report_header"/>
+                    </div>
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" class="float-left" alt="Logo"/>
+
+                    <t t-if="len(docs) == 1">
+                        <img t-if="doc_model == 'account.move'" class="text-center"
+                             t-att-src="'data:image/png;base64,%s' % to_text(docs.qr_code)"
+                             style="width:150px;height:160px;"/>
+                    </t>
+
+                    <div class="float-right company_address">
+                        <div>
+                            <strong t-field="company.partner_id.name"/>
+                        </div>
+                        <span t-field="company.partner_id"
+                            t-options='{"widget": "contact", "fields": ["address"], "no_marker": true}'/>
+                    </div>
+                    <div class="clearfix mb8"/>
+                    </div>
+                </div>
+            </xpath>
+        </template>
+
+    </data>
+</odoo>
