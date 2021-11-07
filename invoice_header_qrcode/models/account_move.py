@@ -32,11 +32,12 @@ class AccountMove(models.Model):
                     box_size=12,
                     border=4,
                 )
+                x = str(self.invoice_date)
                 values = {
                     'company': self.company_id.name,
                     'Invoice number': self.name,
-                    'Partner Name': self.partner_id.name,
-                    'Invoice Date': self.invoice_date,
+                    'Customer Name': self.partner_id.name,
+                    'Invoice Date': x,
                     'Untaxed Amount': self.amount_untaxed,
                     'Total Amount': self.amount_total,
                     'VAT': sum(lst),
