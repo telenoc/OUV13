@@ -21,7 +21,7 @@ class ReportPartnerLedger(models.AbstractModel):
             {},
             {'name': _('JRNL')},
             {'name': _('Account')},
-            {'name': _('Ref'), 'max-width': '20px'},
+            {'name': _('Ref'), 'max-width': '50px'},
             {'name': _('Due Date'), 'class': 'date'},
             {'name': _('Matching Number')},
             {'name': _('Initial Balance'), 'class': 'number'},
