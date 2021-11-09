@@ -1,91 +1,37 @@
 <odoo>
     <data>
-
         <template id="main_template_inherit" inherit_id="account_reports.main_template">
             <xpath expr="//div[@class='o_account_reports_body']" position="before">
                 <style>
                     .table th, .table td{
-                    padding: 0.5rem 0.2rem !important
+                        padding: 0.5rem 0.2rem !important
                     }
-                    @media print{
+                    .o_account_reports_page .o_account_reports_domain_line_4,.o_account_reports_page table > tbody > tr > td ~ td > span{
+                        margin-left:0px !important;
+                        
+                    }
+                    .o_account_reports_page .o_account_reports_table .date
+                    {
+                        text-align: left !important;
+                    }
+                    .o_foldable_total.limit_width{
+                        white-space: nowrap !important;
+                    }
                     .limit_width{
                         width:80% !important;
-                    }
-                    }
-                    .o_account_reports_page table > tbody > tr > td ~ td > span{
-                    margin-left:0px !important
-                    }
-                    .o_account_reports_page .o_account_reports_domain_line_4{
-                    margin-left:0px !important
-                    }
-                    .limit_width{
-                        width:300% !important;
-                        max-width:300% !important;
+                        max-width:80% !important;
                         white-space: normal  !important;
                         word-break: break-word  !important;
                     }
-                    .number {
+                    .tax,.tex,.date,.number {
                         width: 3% !important;
                         max-width: 3% !important;
                     }
-                    .date {
-                                width: 3% !important;
-                                max-width: 3% !important;
-                    }
-                    .tax {
-                        width: 3% !important;
-                        max-width: 3% !important;
-                    }
-                    .tex {
-                        width: 3% !important;
-                        max-width: 3% !important;
-                    }
-
-                    </style>
-            </xpath>
-            <xpath expr="//div[@class='table-responsive']" position="attributes">
-                <attribute name="class"></attribute>
+                </style>
             </xpath>
             <xpath expr="//table[@class='o_account_reports_table table-hover']" position="attributes">
                 <attribute name="class">table table-bordered</attribute>
             </xpath>
         </template>
-
-        <template id="line_template_inherit" inherit_id="account_reports.line_template">
-            <xpath expr="//t[@t-set='trclass']/.." position="before">
-<!--                <link rel="stylesheet" type="text/scss" href="/account_partner_ledger_update/static/src/scss/account_financial_report.scss"/>-->
-                <style>
-                    @media print{
-                    .limit_width{
-                        width:80% !important;
-                    }
-                    }
-                    .limit_width{
-                        width:300% !important;
-                        max-width:300% !important;
-                        white-space: normal  !important;
-                        word-break: break-word  !important;
-                    }
-                    .number {
-                        width: 3% !important;
-                        max-width: 3% !important;
-                    }
-                    .date {
-                                width: 3% !important;
-                                max-width: 3% !important;
-                    }
-                    .tax {
-                        width: 3% !important;
-                        max-width: 3% !important;
-                    }
-                    .tex {
-                        width: 3% !important;
-                        max-width: 3% !important;
-                    }
-
-                    </style>
-                </xpath>
-        </template>
-
     </data>
 </odoo>
